@@ -1,1 +1,22 @@
+name: Run JavaScript via Proxy
+
+on:
+  push:
+    branches:
+      - main  # Değiştirebilirsiniz: çalıştırmak istediğiniz ana dal adı
+
+jobs:
+  run-javascript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run JavaScript via proxy
+        env:
+          PROXY_ENDPOINT: ${{ secrets.PROXY_ENDPOINT }}
+        run: |
+          # Replace with your JavaScript execution command
+          node script.js
 
