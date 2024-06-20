@@ -12,7 +12,7 @@
 
     <script>
         document.getElementById('runButton').addEventListener('click', () => {
-            const proxyUrl = 'https://morning-earth-90063-0ae29c94914c.herokuapp.com/';
+            const proxyUrl = 'https://morning-earth-90063-0ae29c94914c.herokuapp.com/api/github-proxy'; // Proxy endpoint
             const endpoint = 'https://api.ebay.com/identity/v1/oauth2/token';
             const clientId = 'KadirKar-add-PRD-a0f040068-cca6d122'; // Replace with your eBay client ID
             const clientSecret = 'PRD-0f040068e904-b3b9-4e55-8474-f20a'; // Replace with your eBay client secret
@@ -26,23 +26,23 @@
             const formData = new URLSearchParams();
             formData.append('grant_type', 'refresh_token');
             formData.append('refresh_token', refreshToken);
-            formData.append('scope', 'https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/sell.finances https://api.ebay.com/oauth/api_scope/sell.payment.dispute https://api.ebay.com/oauth/api_scope/commerce.identity.readonly https://api.ebay.com/oauth/api_scope/sell.reputation https://api.ebay.com/oauth/api_scope/sell.reputation.readonly https://api.ebay.com/oauth/api_scope/commerce.notification.subscription https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly https://api.ebay.com/oauth/api_scope/sell.stores https://api.ebay.com/oauth/api_scope/sell.stores.readonly'); // Replace with your scope list
+            formData.append('scope', 'https://api.ebay.com/oauth/api_scope ...'); // Replace with your scope list
 
-            fetch(proxyUrl + endpoint, {
+            fetch(proxyUrl, {
                 method: 'POST',
                 headers: headers,
                 body: formData
             })
             .then(response => {
                 if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const contentType = response.headers.get("content-type");
-                    if (contentType && contentType.includes("application/json")) {
-                        return response.json();
-                    } else {
-                        throw new TypeError("Oops, we haven't got JSON!");
-                    }
+                    throw new Error('Network response was not ok');
+                }
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json();
+                } else {
+                    throw new TypeError("Oops, we haven't got JSON!");
+                }
             })
             .then(data => {
                 document.getElementById('output').textContent = JSON.stringify(data, null, 2);
@@ -52,7 +52,6 @@
                 document.getElementById('output').textContent = `Error: ${error.message}`;
             });
         });
-
     </script>
 </body>
 </html>
