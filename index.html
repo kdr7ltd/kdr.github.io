@@ -11,21 +11,23 @@
     <pre id="output"></pre>
 
     <script>
-        document.getElementById('runButton').addEventListener('click', () => {
-            const endpoint = 'https://api.ebay.com/sell/marketing/v1/ad_campaign/13592526018/ad';
+document.getElementById('runButton').addEventListener('click', () => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const endpoint = 'https://api.ebay.com/sell/marketing/v1/ad_campaign/13592526018/ad';
+    
+    const headers = {
+        'Authorization': 'Bearer v^1.1#i^1#r^0#f^0#p^3#I^3#t^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',
+        'Accept': 'application/json'
+    };
 
-            const headers = {
-                'Authorization': 'Bearer v^1.1#i^1#r^0#f^0#p^3#I^3#t^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',
-                'Accept': 'application/json'
-            };
+    fetch(proxyUrl + endpoint, { headers })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => console.error('Error:', error));
+});
 
-            fetch(endpoint, { headers })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => console.error('Error:', error));
-        });
     </script>
 </body>
 </html>
